@@ -116,7 +116,6 @@ async def tsh(callback: CallbackQuery):
 async def tsh(callback: CallbackQuery):
     user_id = callback.from_user.id
     unique = callback.data.split(":")[1]
-    print(unique)
     if len(help_test(user_id,unique)) == 3:
         text, result1, result2 = help_test(user_id,unique)  
         konec = InlineKeyboardMarkup(inline_keyboard=[
@@ -140,7 +139,6 @@ async def tsh(callback: CallbackQuery):
     unique = callback.data.split(":")[1]
     if unique == 'main':
         result1, result2 = help_sort_test(user_id)
-        print(result1)
         conn = sqlite3.connect('users.db')
         cursor = conn.cursor()
         cursor.execute("INSERT OR REPLACE INTO users (user_id, napravlenie) VALUES (? , ?)", (user_id, result1))
@@ -257,7 +255,6 @@ async def tsh(callback: CallbackQuery):
     sokrdannie = cursor.fetchall()
     cursor.execute('SELECT napravlenie FROM vyz WHERE vyz_sokr = ?',(unique,))
     napravlenie = cursor.fetchone() 
-    print(napravlenie[0])
     KeyBoard = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Сайт учебного заведения🌐', url=f'{sokrdannie[0][1]}')],
     [InlineKeyboardButton(text='Что такое "Проходной бал"?', callback_data='prohodnoy')],
